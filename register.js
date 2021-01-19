@@ -242,17 +242,6 @@ function checkPassword() {
         passMsg.innerHTML = "";
     }
 }
-function checkAdmin() {
-    const password = document.querySelector('.passcode').value;
-    const adminMsg = document.querySelector('.adminMessage');
-    if(password.includes(secretCode)){
-       adminMsg.innerHTML = "you got the admin code";
-       adminMsg.style.color = "green";
-    }
-    else{
-        adminMsg.innerHTML = "";
-    }
-}
 function clearField(){
     document.querySelector('.fname').value = "";
     document.querySelector('.lname').value = "";
@@ -266,7 +255,6 @@ function clearField(){
 
 
 //event listeners
-//password.addEventListener("change", checkAdmin);
 email.addEventListener("change", emailValidation);
 mobile.addEventListener("change", () =>{
     mobileValidation();
