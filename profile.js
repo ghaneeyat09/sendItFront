@@ -1,10 +1,13 @@
 $(document).on('click', '.editBtn', function(e){
    const row =  $(e.target).closest('tr');
    const rowId = row.find('.orderId')[0].innerHTML;
+   const rowStatus = row.find('.status')[0].innerHTML;
+
    //console.log(rowId);
    //localStorage.setItem("rowId", rowId);
-   const newDest = prompt("Enter a new destination")
-   if(newDest.value !== ""){
+   if(rowStatus !== "delivered" && rowStatus !== "cancelled"){
+     const newDest = prompt("Enter a new destination");
+       if(newDest.value !== ""){
       fetch(`${url}/order/${rowId}`, {
         method: "PATCH",
         headers: {
@@ -27,14 +30,26 @@ $(document).on('click', '.editBtn', function(e){
       .catch((err) => {
           console.log(err);
       })
-
+    }
    }
+else if(rowStatus === "delivered"){
+       alert("parcel order has been delivered");
+   }
+else if(rowStatus === "cancelled"){
+    alert("parcel order has been delivered");
+}
 });
  
 $(document).on('click', '.cancelBtn', function(e){
     const row =  $(e.target).closest('tr');
     const rowId = row.find('.orderId')[0].innerHTML;
-    cancelOrder(rowId);
+    const rowStatus = row.find('.status')[0].innerHTML;
+    if(rowStatus !== "delivered"){
+     cancelOrder(rowId);
+    }
+    else if(rowStatus === "delivered"){
+      alert("parcel order has been delivered");
+    }
 })
    /*form.style.display = "block";
    destination.value = oldDestination;
@@ -192,7 +207,7 @@ const viewOrders = function(){
             const deliveredOrders = document.querySelector('.deliveredOrders');
             const ordersOnTransit = document.querySelector('.ordersOnTransit');
             const tbody = document.querySelector('.tbody');
-    
+            totalOrders.innerHTML = res.orders.lenght;
             orders.forEach((order) => {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `<th scope="row" class="orderId">${order._id}</th>
