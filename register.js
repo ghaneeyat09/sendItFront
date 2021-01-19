@@ -109,14 +109,13 @@ const registerUser = function(e){
         fname.value &&
         email.value &&
         userName.value &&
-        password.value &&
+        password.value === secretCode &&
         confirmPassword.value &&
         lname.value === "" &&
         mobile.value === ""
      ){
             if(notification.innerHTML === "" &&
-               passMsg.innerHTML === "" &&
-               adminMsg.innerHTML === "you got the admin code"){
+               passMsg.innerHTML === ""){
                fetch(`${url}/user/register/admin`, 
         {
             method: "POST",
@@ -267,7 +266,7 @@ function clearField(){
 
 
 //event listeners
-password.addEventListener("change", checkAdmin);
+//password.addEventListener("change", checkAdmin);
 email.addEventListener("change", emailValidation);
 mobile.addEventListener("change", () =>{
     mobileValidation();
