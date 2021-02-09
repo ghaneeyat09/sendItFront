@@ -88,7 +88,6 @@ const registerUser = function(e){
                     console.log(res);
                     if(res.success){
                         console.log("result", res.data);
-                        alert('user created successfully');
                         localStorage.setItem("firstName", res.data.firstName);
                         localStorage.setItem("userId", res.data._id);
                         window.location.href = "./profile.html";
@@ -148,7 +147,6 @@ const registerUser = function(e){
                     console.log(result)
                     if(result.success){
                         console.log("result", result.data);
-                        alert('Admin created successfully');
                         localStorage.setItem("firstName", result.data.firstName);
                         localStorage.setItem("email", result.data.email);
                         localStorage.setItem("adminId", result.data._id);

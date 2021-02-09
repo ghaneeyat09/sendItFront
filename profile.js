@@ -88,7 +88,6 @@ const submitOrder = (e) => {
     const destination = document.querySelector('.destination').value;
     const recipientName = document.querySelector('.recName').value;
     const recipientMobile = document.querySelector('.recMob').value;
-    const senderMobile = document.querySelector('.sendMob').value;
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
     if(orderSubmit.innerHTML === "submit"){
@@ -97,16 +96,14 @@ const submitOrder = (e) => {
         pickup: document.querySelector('.pickup').value,
         destination: document.querySelector('.destination').value,
         recName: document.querySelector('.recName').value,
-        recPhoneNo: document.querySelector('.recMob').value,
-        userPhoneNo: document.querySelector('.sendMob').value, 
+        recPhoneNo: document.querySelector('.recMob').value 
     
     }
     if(userId &&
        pickup &&
        destination &&
        recipientName &&
-       recipientMobile &&
-       senderMobile
+       recipientMobile
         ){
          if(errormsg.innerHTML !== "invalid mobile no" && 
             errormsg2.innerHTML !== "invalid mobile no"){
@@ -141,8 +138,7 @@ const submitOrder = (e) => {
         pickup === ""||
         destination === ""||
         recipientMobile === "" ||
-        recipientName === "" ||
-        senderMobile === "" 
+        recipientName === ""
         )
         {
         alert("pls enter the field correctly");
@@ -214,8 +210,7 @@ const viewOrders = function(){
                             <td>${order.pickup}</td>
                             <td class="dest">${order.destination}</td>
                             <td>${order.recPhoneNo}</td>
-                            <td>${order.recName}</td>
-                            <td>${order.userPhoneNo}</td> 
+                            <td>${order.recName}</td> 
                             <td class="status">${order.status}</td>
                             <td><button type="button" id="editBtn" class="editBtn" data-toggle="#editModal" orderid="${order._id}" >Edit</button></td>
                             <td><button type="button" id="cancelBtn" class="cancelBtn">Cancel</button></td>`;
@@ -287,25 +282,6 @@ const cancelOrder = function(rowId){
 
  }
  
- function senderPhonevalidation() {
-    const senderMobile = document.querySelector('.sendMob').value;
-    const errormsg2 = document.querySelector('.errorMsg2');
-    const pattern = /^\d{11}$/;
-     
-    if(senderMobile.match(pattern)){
-        errormsg2.innerHTML = "";
-    }
-    else{
-        errormsg2.innerHTML = "invalid mobile no";
-        errormsg2.style.color = "red";
-          return false
-    }
-    if(senderMobile.innerHTML === ""){
-        errormsg2.innerHTML = "";
-    }
-
- }
-
  function clearInput() {
     document.querySelector('.pickup').value = "";
     document.querySelector('.destination').value = "";
@@ -322,8 +298,6 @@ createBtn.onclick = () => {
     summary.style.display = "none";
 }
 recipientMobile.addEventListener('change', recPhoneNovalidation);
-
-senderMobile.addEventListener('change', senderPhonevalidation);
 
 form.addEventListener("submit", submitOrder);
 
