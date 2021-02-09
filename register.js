@@ -12,6 +12,7 @@ const instruction = document.querySelector('.instruction');
 const passMsg = document.querySelector(".passMsg");
 const adminMsg = document.querySelector('.adminMessage');
 const signupBtn = document.querySelector('.signup-btn');
+const homeAddress = document.querySelector('.hmAddress');
 const secretCode = "0987IamSeNDIt87AdMiN0805";
 const form = document.querySelector('.form');
 //const cors_api_url = "https://cors-anywhere.herokuapp.com";
@@ -25,6 +26,7 @@ const registerUser = function(e){
     const email = document.querySelector('.ename');
     const userName = document.querySelector('.username');
     const mobile = document.querySelector('.mobile');
+    const homeAddress = document.querySelector('.hmAddress');
     const password = document.querySelector('.passcode');
     const confirmPassword = document.querySelector('.conpass');
 
@@ -41,6 +43,7 @@ const registerUser = function(e){
         userName: userName.value,
         email: email.value,
         mobileNo: mobile.value,
+        homeAddress: homeAddress.value,
         password: password.value,
         confirmPassword: confirmPassword.value 
         }          
@@ -50,6 +53,7 @@ const registerUser = function(e){
             email.value &&
             userName.value &&
             mobile.value &&
+            homeAddress.value &&
             password.value && 
             confirmPassword.value
         ){
@@ -167,7 +171,8 @@ const registerUser = function(e){
     lname.value === "" ||
     email.value === "" ||
     userName.value === "" ||
-    mobile.value=== "" ||
+    mobile.value === "" ||
+    homeAddress.value === "" ||
     password.value=== "" ||
     confirmPassword.value === "")
     {
@@ -246,6 +251,7 @@ function clearField(){
     document.querySelector('.ename').value = "";
     document.querySelector('.username').value = "";
     document.querySelector('.mobile').value = "";
+    document.querySelector('.homeAddress').value = "";
     document.querySelector('.passcode').value = "";
     document.querySelector('.conpass').value = "";
 }

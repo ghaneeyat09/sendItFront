@@ -105,8 +105,7 @@ const submitOrder = (e) => {
        recipientName &&
        recipientMobile
         ){
-         if(errormsg.innerHTML !== "invalid mobile no" && 
-            errormsg2.innerHTML !== "invalid mobile no"){
+         if(errormsg.innerHTML !== "invalid mobile no"){
       fetch(`${url}/order`, {
         method: "POST",
         headers: {
@@ -209,8 +208,8 @@ const viewOrders = function(){
                 tr.innerHTML = `<th scope="row" class="orderId">${order._id}</th>
                             <td>${order.pickup}</td>
                             <td class="dest">${order.destination}</td>
-                            <td>${order.recPhoneNo}</td>
-                            <td>${order.recName}</td> 
+                            <td>${order.recName}</td>
+                            <td>${order.recPhoneNo}</td> 
                             <td class="status">${order.status}</td>
                             <td><button type="button" id="editBtn" class="editBtn" data-toggle="#editModal" orderid="${order._id}" >Edit</button></td>
                             <td><button type="button" id="cancelBtn" class="cancelBtn">Cancel</button></td>`;
@@ -287,7 +286,6 @@ const cancelOrder = function(rowId){
     document.querySelector('.destination').value = "";
     document.querySelector('.recName').value = "";
     document.querySelector('.recMob').value = "";
-    document.querySelector('.sendMob').value = "";
  }
  
 

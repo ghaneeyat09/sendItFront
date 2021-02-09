@@ -63,7 +63,6 @@ function loginBasicUser(){
              .then((res) => res.json())
              .then((res) => {
                  if(res.success){
-                     alert('user logged in successfully');
                      localStorage.setItem("firstName", res.data.firstName);
                      localStorage.setItem("userId", res.data._id);
                      email.value = "";
@@ -115,7 +114,6 @@ function logAdmin(){
                 .then((res) => res.json())
                 .then((res) => {
                     if(res.success){
-                        alert('admin logged in successfully');
                         localStorage.setItem("firstName", res.data.firstName);
                         localStorage.setItem("userId", res.data._id);
                         localStorage.setItem("email", res.data.email);
