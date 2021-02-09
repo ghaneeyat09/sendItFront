@@ -214,7 +214,8 @@ function emailValidation() {
 function mobileValidation() {
     const mobile = document.querySelector('.mobile').value;
     const errorMsg = document.querySelector(".errMessage");
-    const pattern = /^[\+]?[234]\d{12}$/;
+    const pattern = /^(\+|00)[0-9]{1,3}[0-9]{4,14}(?:x.+)?$/
+    //const pattern = /^[\+]?[234]\d{12}$/;
     //const pattern = /^\d{11}$/;
 
 
