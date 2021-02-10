@@ -234,13 +234,14 @@ function checkPasswordLenght() {
     const password = document.querySelector('.passcode');
     const adminMsg = document.querySelector('.adminMessage');
     if(password.value.lenght < 6){
-        adminMsg.innerHTML = "password must be a minimum of six characters"
-        adminMsg.style.color = "red"
+        adminMsg.innerHTML = "password must be a minimum of six characters";
+        adminMsg.style.color = "red";
+        return false;
     }
-    else if(password.value.lenght === 6 || password.lenght > 6){
+    else{
         adminMsg.innerHTML = "";
     }
-    else if(password.value === ""){
+    if(password.value === ""){
         adminMsg.innerHTML = "";
     }
 }
@@ -283,7 +284,7 @@ mobile.addEventListener("change", () =>{
 mobile.addEventListener("click", function(){
   instruction.innerHTML = "mobile number must include a country code"
 });
-password.addEventListener("change", checkPasswordLenght);
+password.addEventListener("mouseout", checkPasswordLenght);
 confirmPassword.addEventListener("mouseout", checkPassword);
 form.addEventListener("submit", registerUser);
 
