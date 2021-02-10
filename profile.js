@@ -202,7 +202,6 @@ const viewOrders = function(){
             const deliveredOrders = document.querySelector('.deliveredOrders');
             const ordersOnTransit = document.querySelector('.ordersOnTransit');
             const tbody = document.querySelector('.tbody');
-            totalOrders.innerHTML = res.orders.lenght;
             orders.forEach((order) => {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `<th scope="row" class="orderId">${order._id}</th>
@@ -216,6 +215,8 @@ const viewOrders = function(){
                         
             tbody.appendChild(tr);
             table.appendChild(tbody);
+            totalOrders.innerHTML = res.orders.length;
+            deliveredOrders.innerHTML = `${order.status.delivered}`.length;
             }) 
         }
 
