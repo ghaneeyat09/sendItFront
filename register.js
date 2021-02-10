@@ -230,6 +230,20 @@ function mobileValidation() {
         errorMsg.innerHTML = "";
     }
 }
+function checkPasswordLenght() {
+    const password = document.querySelector('.passcode');
+    const adminMsg = document.querySelector('.adminMessage');
+    if(password.value.lenght < 6){
+        adminMsg.innerHTML = "password must be a minimum of six characters"
+        adminMsg.style.color = "red"
+    }
+    else if(password.value.lenght === 6 || password.lenght > 6){
+        adminMsg.innerHTML = "";
+    }
+    else if(password.value === ""){
+        adminMsg.innerHTML = "";
+    }
+}
 function checkPassword() {
     const password = document.querySelector('.passcode');
     const confirmPassword = document.querySelector('.conpass');
@@ -267,8 +281,9 @@ mobile.addEventListener("change", () =>{
     instruction.innerHTML = "";
 });
 mobile.addEventListener("click", function(){
-  instruction.innerHTML = "mobile number can only contain 11 digits without the country code"
+  instruction.innerHTML = "mobile number must include a country code"
 });
+password.addEventListener("change", checkPasswordLenght);
 confirmPassword.addEventListener("mouseout", checkPassword);
 form.addEventListener("submit", registerUser);
 
