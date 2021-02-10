@@ -232,17 +232,17 @@ function mobileValidation() {
 }
 function checkPasswordLenght() {
     const password = document.querySelector('.passcode');
-    const adminMsg = document.querySelector('.adminMessage');
+    const passlenght = document.querySelector('.passLenght');
     if(password.value.lenght < 6){
-        adminMsg.innerHTML = "password must be a minimum of six characters";
-        adminMsg.style.color = "red";
+        passlenght.innerHTML = "password must be a minimum of six characters";
+        passlenght.style.color = "red";
         return false;
     }
-    else{
-        adminMsg.innerHTML = "";
+    else if(password.value.lenght === 6 || password.value.lenght > 6){
+        passlenght.innerHTML = "";
     }
-    if(password.value === ""){
-        adminMsg.innerHTML = "";
+    else if(password.value.lenght === 0){
+        passlenght.innerHTML = "";
     }
 }
 function checkPassword() {
