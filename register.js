@@ -231,17 +231,17 @@ function mobileValidation() {
     }
 }
 function checkPasswordLenght() {
-    const password = document.querySelector('.passcode');
+    const password = document.querySelector('.passcode').value;
     const passlenght = document.querySelector('.passLenght');
-    if(password.value.lenght < 6){
+    if(password.lenght < 6){
         passlenght.innerHTML = "password must be a minimum of six characters";
         passlenght.style.color = "red";
         return false;
     }
-    else if(password.value.lenght === 6 || password.value.lenght > 6){
+    else if(password.lenght === 6 || password.lenght > 6){
         passlenght.innerHTML = "";
     }
-    else if(password.value.lenght === 0){
+    else if(password === ""){
         passlenght.innerHTML = "";
     }
 }
