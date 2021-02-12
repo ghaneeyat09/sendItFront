@@ -21,6 +21,7 @@ body{
     text-transform: capitalize;
     font-family: 'Courier New', Courier, monospace;
     font-weight: 500;
+    cursor: pointer;
 }
 #main-nav ul li:hover{
     background-color: rgba(196, 2, 83, 0.6);
@@ -160,4 +161,16 @@ tbody, th, td{
 }
 #editModal{
     display: none;
+}
+#amount{
+    width: 150px;
+    margin: auto;
+}
+.amountText{
+    width: 150px;
+    color:rgb(78, 3, 42);
+    margin-top: 20px;
+}
+.amount{
+    margin-top: -8px;
 }

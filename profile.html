@@ -11,7 +11,7 @@
         <div id="main-nav">
             <ul>
                 <li><a href="./index.html">home</a></li>
-                <li class="logOut"><a href="/">Logout</a></li>
+                <li class="logOut">Logout</li>
                 <li><span class="user"></span></li>
             </ul>
         </div>
@@ -22,8 +22,8 @@
         <div id="summary">
             <ul>
                 <li>total number of orders: <span class="totalOrders"></span></li>
-                <li>number of orders delivered<span class="deliveredOrders"></span></li>
-                <li>number of orders on transit<span class="ordersOnTransit"></span></li>
+                <li>number of orders delivered: <span class="deliveredOrders"></span></li>
+                <li>number of orders on transit: <span class="ordersOnTransit"></span></li>
             </ul>
         </div>
         <form id="orderField" class="show">
@@ -32,6 +32,12 @@
             <input type="text" class="recName" placeholder="Recipient Name">
             <input type="text" class="recMob" placeholder="Recipient Mobile no.">
             <p class="errorMsg"></p>
+            <input type="text" class="weight" placeholder="Parcel Weight(kg)">
+            <div id="amount">
+              <h1 class="amountText">Amount</h1>
+            </div>
+            <input type="text" class="amount">
+            
             <div id="orderSubmit">
                <button class="orderSubmit" type="submit">submit</button>
             </div>
@@ -89,6 +95,5 @@
            const autocompleteDestination = new google.maps.places.Autocomplete(destination);
         }
     </script>
-    <!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3FQeb4_K4bYBx-R_6W6HbxLhMWRH6Unc&libraries=places&callback=initMap"></script-->
-    
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3FQeb4_K4bYBx-R_6W6HbxLhMWRH6Unc&libraries=places&callback=initMap"></script>
 </html>

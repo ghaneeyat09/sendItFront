@@ -57,11 +57,13 @@ $(document).on('click', '.cancelBtn', function(e){
         
 });*/
 
+
 //queried elements
 const recipientMobile = document.querySelector('.recMob');
 const senderMobile = document.querySelector('.sendMob');
 const errormsg = document.querySelector('.errorMsg');
 const errormsg2 = document.querySelector('.errorMsg2');
+const mainNav = document.querySelector('#main-nav');
 const createBtn = document.querySelector('.createBtn');
 const viewBtn = document.querySelector(".getOrders");
 const form = document.querySelector('#orderField');
@@ -74,13 +76,19 @@ const table = document.querySelector('.table');
 const username = document.querySelector('.user');
 const url = "https://send-it-back-app.herokuapp.com";
 const tbody = document.querySelector('.tbody');
+const weight = document.querySelector('.weight');
+const amount = document.querySelector('.amount');
 const modal = document.querySelector('#editModal');
 
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
 const userName = localStorage.getItem("firstName");
 
-username.innerHTML = `Welcome ${userName}`
+/*if(!token && !userId){
+    window.location.href = "./login.html";
+}*/
+
+username.innerHTML = `Welcome ${userName}`;
 //create an order
 const submitOrder = (e) => {
          e.preventDefault();
@@ -177,9 +185,7 @@ const submitOrder = (e) => {
 }    
     
  */   
-    else if(!token && !userId){
-        window.location.href = "./login.html"
-    }
+    
 
 }
 
@@ -216,10 +222,19 @@ const viewOrders = function(){
             tbody.appendChild(tr);
             table.appendChild(tbody);
             totalOrders.innerHTML = res.orders.length;
-            deliveredOrders.innerHTML = `${order.status.delivered}`.length;
-            }) 
+            const delivered = res.orders.filter((value) => value.status === "delivered").length;
+            deliveredOrders.innerHTML = `${delivered}`;
+            const transit = res.orders.filter((value) => value.status === "on transit").length;
+            ordersOnTransit.innerHTML = `${transit}`;
+        });
+        if(res.orders.length === 0){
+            emptyMsg.innerHTML = "No parcel delivery order yet";
+            totalOrders.innerHTML = 0;
+            deliveredOrders.innerHTML = 0;
+            ordersOnTransit.innerHTML = 0;
         }
-
+    }
+        
         else if(res.error){
             console.log(error)
         }
@@ -260,13 +275,23 @@ const cancelOrder = function(rowId){
             console.log(err)
         })
     }
-
+//calculate amount
+ function calcAmount(){
+    const weight = document.querySelector('.weight').value;
+    const amount = document.querySelector('.amount');
+    if(weight){
+    amount.value = weight * 330;
+    }
+    else{
+    amount.value = "";
+    }
+ }
 //functions
  
  function recPhoneNovalidation() {
     const recipientMobile = document.querySelector('.recMob').value;
     const errormsg = document.querySelector('.errorMsg');
-    const pattern = /^\d{11}$/;
+    const pattern = /^(\+|00)[0-9]{1,3}[0-9]{4,14}(?:x.+)?$/;
      
     if(recipientMobile.match(pattern)){
         errormsg.innerHTML = "";
@@ -274,9 +299,8 @@ const cancelOrder = function(rowId){
     else{
         errormsg.innerHTML = "invalid mobile no";
         errormsg.style.color = "red";
-        return false
     }
-    if(recipientMobile.innerHTML === ""){
+    if(recipientMobile === ""){
         errormsg.innerHTML = "";
     }
 
@@ -295,11 +319,13 @@ createBtn.onclick = () => {
     form.style.display = "block";
     table.style.display = "none"
     summary.style.display = "none";
+    emptyMsg.innerHTML = "";
 }
 recipientMobile.addEventListener('change', recPhoneNovalidation);
 
 form.addEventListener("submit", submitOrder);
 
+weight.addEventListener("mouseout", calcAmount);
 viewBtn.addEventListener("click", () => {
     form.style.display = "none";
     summary.style.display = "block";
@@ -309,10 +335,15 @@ viewBtn.addEventListener("click", () => {
 });
 orderSubmit.addEventListener("click", submitOrder);
 logout.addEventListener("click", () => {
-     //console.log("logged out");
+     console.log("logged out");
      localStorage.clear();
-     username.innerHTML = "";
      window.location.href = "./index.html";
 
 });
+if(!userId && !token){
+    window.location.href = "./login.html";
+}
+
+
+
 

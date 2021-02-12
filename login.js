@@ -48,8 +48,8 @@ function loginBasicUser(){
                alert('user not registered');
                return false;
            }
-           if(res.message === "incorrect password"){
-               alert('incorrect password');
+           if(res.message === "invalid email/password"){
+               alert('invalid email/password');
            }
            else if(res.token){
              const { _id } = res.user;
@@ -95,12 +95,9 @@ function logAdmin(){
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
-            if(res.message === "admin not found" && password.value != ""){
-                alert('admin not registered');
-                return false;
-            }
-            else if(res.message === "incorrect password"){
-                alert('incorrect password');
+            
+            if(res.message === "invalid email/password"){
+                alert('invalid email/password');
             }
             else if(res.token){
                 const { _id } = res.admin;

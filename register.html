@@ -29,7 +29,7 @@
                <input class="ename" type='text' name="email">
                <p class="notification"></p>
              <h2>Home Address</h2>
-               <input class="hmAddress" type="text" name="homeAddress">
+               <input id="hmAddress" class="hmAddress" type="text" placeholder = "" name="homeAddress">
              <h2>Password</h2>
                <input class="passcode" type='password' name="password">
                <p class="passLenght"></p>
@@ -44,4 +44,15 @@
         </div>
         <script src="./register.js"></script>
     </body>
+
+    <script>
+      function initMap(){
+         const homeAddress= document.getElementById('hmAddress');
+
+         const autocompletePickup = new google.maps.places.Autocomplete(homeAddress);
+      }
+  </script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3FQeb4_K4bYBx-R_6W6HbxLhMWRH6Unc&libraries=places&callback=initMap"></script>
+  
+
 </html>

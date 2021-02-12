@@ -11,3 +11,6 @@ function changeText(){
     senditTexts.innerHTML = messages[Math.floor(Math.random() * messages.length)];
 }
 setInterval(changeText, 3000);
+
+const userId = localStorage.getItem("userId");
+const token = localStorage.getItem("token");
