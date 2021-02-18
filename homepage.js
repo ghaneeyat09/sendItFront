@@ -12,5 +12,7 @@ function changeText(){
 }
 setInterval(changeText, 3000);
 
-const userId = localStorage.getItem("userId");
-const token = localStorage.getItem("token");
+
+
+
+

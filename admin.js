@@ -121,6 +121,9 @@ logout.onclick = function(){
     localStorage.clear();
     window.location.href = "./index.html";
 }
+if(!token){
+    window.location.href = "./login.html"
+}
 const displayOrders = function(){
   fetch(`${url}/order`, {
       method: "GET",

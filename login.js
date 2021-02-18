@@ -25,6 +25,9 @@ const logUser = function(e) {
             logAdmin();
           
    }
+   else if(!email.value.match(pattern) && password != ""){
+       alert("invalid email/password");
+   }
    else if(email.value === "" || password.value === ""){
         alert("pls enter your field completely");
         }
@@ -95,7 +98,10 @@ function logAdmin(){
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
-            
+            if(res.message === "user not found" && password.value != ""){
+                alert('user not registered');
+                return false;
+            }
             if(res.message === "invalid email/password"){
                 alert('invalid email/password');
             }
@@ -129,5 +135,7 @@ function logAdmin(){
         }   
 
 
-form.addEventListener("submit", logUser)
+form.addEventListener("submit", logUser);
+
+
 

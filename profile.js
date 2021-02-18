@@ -335,14 +335,16 @@ viewBtn.addEventListener("click", () => {
 });
 orderSubmit.addEventListener("click", submitOrder);
 logout.addEventListener("click", () => {
-     console.log("logged out");
      localStorage.clear();
+     username.innerHTML = "";
      window.location.href = "./index.html";
-
 });
+
+
 if(!userId && !token){
     window.location.href = "./login.html";
 }
+
 
 
 
