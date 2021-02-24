@@ -323,7 +323,7 @@ const cancelOrder = function(rowId){
 //event listeners
 createBtn.onclick = () => {
     form.style.display = "block";
-    table.style.display = "block";
+    table.style.display = "none";
     summary.style.display = "none";
     emptyMsg.innerHTML = "";
 }
