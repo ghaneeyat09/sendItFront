@@ -8,9 +8,9 @@ $(document).on('click', '.editBtn', function(e){
    if(rowStatus !== "delivered" && rowStatus !== "cancelled"){
      const newDest = prompt("Enter a new destination");
        if(newDest.value !== ""){
-      fetch(`${url}/order/${rowId}`, {
-        method: "PATCH",
-        headers: {
+         fetch(`${url}/order/${rowId}`, {
+         method: "PATCH",
+         headers: {
           "Content-type": "application/json",
            Authorization: token
         },
