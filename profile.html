@@ -90,9 +90,11 @@
         function initMap(){
            const pickup = document.getElementById('pickup');
            const destination = document.getElementById('destination');
+           //const promptDest = document.getElementsByClassName('promptDest');
 
            const autocompletePickup = new google.maps.places.Autocomplete(pickup);
            const autocompleteDestination = new google.maps.places.Autocomplete(destination);
+           //const autocompletePrompDest = new google.maps.places.Autocomplete(promptDest);
         }
     </script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3FQeb4_K4bYBx-R_6W6HbxLhMWRH6Unc&libraries=places&callback=initMap"></script>
