@@ -6,7 +6,7 @@ $(document).on('click', '.editBtn', function(e){
    //console.log(rowId);
    //localStorage.setItem("rowId", rowId);
    if(rowStatus !== "delivered" && rowStatus !== "cancelled"){
-     //const newDest = prompt("Enter a new destination");
+     const newDest = prompt("Enter a new destination");
        if(newDest.value !== ""){
       fetch(`${url}/order/${rowId}`, {
         method: "PATCH",
