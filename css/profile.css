@@ -110,6 +110,9 @@ body{
     margin: auto;
     margin-top: 40px;
 }
+tbody{
+    transition: linear;
+}
 table{
     table-layout: fixed;
     width: 1350px;
@@ -124,12 +127,20 @@ table, tbody, th, td{
 tbody, th, td{
     border: 1px solid black;
 }
-
+.orderID{
+    width: 180px;
+}
 .pickLocation{
     width: 140px;
 }
 .destination{
     width: 140px;
+}
+.edit{
+    width: 60px;
+}
+.cancel{
+    width: 60px;
 }
 #summary{
     width: 300px;
@@ -173,4 +184,14 @@ tbody, th, td{
 }
 .amount{
     margin-top: -8px;
+}
+/*.recMob::-webkit-outer-spin-button,
+.recMob::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}*/
+.weight::-webkit-outer-spin-button,
+.weight::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
 }

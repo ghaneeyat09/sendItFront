@@ -104,14 +104,16 @@ const submitOrder = (e) => {
         pickup: document.querySelector('.pickup').value,
         destination: document.querySelector('.destination').value,
         recName: document.querySelector('.recName').value,
-        recPhoneNo: document.querySelector('.recMob').value 
+        recPhoneNo: document.querySelector('.recMob').value,
+        weight: document.querySelector('.weight').value,
     
     }
     if(userId &&
        pickup &&
        destination &&
        recipientName &&
-       recipientMobile
+       recipientMobile &&
+       weight
         ){
          if(errormsg.innerHTML !== "invalid mobile no"){
       fetch(`${url}/order`, {
@@ -126,9 +128,10 @@ const submitOrder = (e) => {
         .then((res) => {
             console.log(res);
             if(res.message === "order created"){
-                alert("Order created successfully.Click on view orders to see your orders");
+                alert("Order created successfully");
                 clearInput();
-                return true;
+                location.reload();
+                
             }
             else if(res.error){
                 console.log(res.error);
@@ -244,7 +247,7 @@ const viewOrders = function(){
         console.log(err);
     })
 }   
-
+viewOrders();
 
 
 
@@ -311,13 +314,16 @@ const cancelOrder = function(rowId){
     document.querySelector('.destination').value = "";
     document.querySelector('.recName').value = "";
     document.querySelector('.recMob').value = "";
+    document.querySelector('.weight').value = "";
+    document.querySelector('.amount').value = "";
+
  }
  
 
 //event listeners
 createBtn.onclick = () => {
     form.style.display = "block";
-    table.style.display = "none"
+    table.style.display = "block";
     summary.style.display = "none";
     emptyMsg.innerHTML = "";
 }
@@ -326,13 +332,13 @@ recipientMobile.addEventListener('change', recPhoneNovalidation);
 form.addEventListener("submit", submitOrder);
 
 weight.addEventListener("mouseout", calcAmount);
-viewBtn.addEventListener("click", () => {
+/*viewBtn.addEventListener("click", () => {
     form.style.display = "none";
     summary.style.display = "block";
     tbody.innerHTML = "";
     table.style.display = "block";
     viewOrders();
-});
+});*/
 orderSubmit.addEventListener("click", submitOrder);
 logout.addEventListener("click", () => {
      localStorage.clear();

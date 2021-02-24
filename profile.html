@@ -17,7 +17,7 @@
         </div>
         <div id="sub-nav">
             <button class="createBtn">create order</button>
-            <button class="getOrders">view orders</button>
+            <!--button class="getOrders">view orders</button-->
         </div>
         <div id="summary">
             <ul>
@@ -32,7 +32,7 @@
             <input type="text" class="recName" placeholder="Recipient Name">
             <input type="text" class="recMob" placeholder="Recipient Mobile no.">
             <p class="errorMsg"></p>
-            <input type="text" class="weight" placeholder="Parcel Weight(kg)">
+            <input type="number" class="weight" placeholder="Parcel Weight(kg)">
             <div id="amount">
               <h1 class="amountText">Amount</h1>
             </div>
@@ -43,7 +43,7 @@
             </div>
         </form><br>
 
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        <!--div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -60,19 +60,19 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div-->
 
         <div id="created-orders">
             <table border=1 class="table">
                 <tr>
-                    <th>orderID</th>
+                    <th class="orderID">orderID</th>
                     <th class="pickLocation">pickup location</th>
                     <th class="destination">destination</th>
                     <th>recipient name</th>
                     <th>recipient mobile no.</th>
                     <th>order status</th>
-                    <th></th>
-                    <th></th>
+                    <th class="edit">edit destination</th>
+                    <th class="cancel">cancel order</th>
                 </tr>
                 <tbody class="tbody"></tbody>
                 <!--tr>
