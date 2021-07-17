@@ -11,8 +11,9 @@ adminName.innerHTML = `Admin ${adminFirst}`;
 $(document).on("click", ".editBtn", function(e){
    const row = $(e.target).closest('tr');
    const orderId = row.find('.orderId')[0].innerHTML;
-   console.log(orderId);
-
+   const rowStatus = row.find('.status')[0].innerHTML;
+  // console.log(orderId, rowStatus);
+   if(rowStatus === "ready to pick"){
    const orderStatus = prompt("do you want to change the status of the parcel order to 'on transit' or 'delivered'");
    switch(orderStatus) {
    case "delivered":
@@ -32,6 +33,7 @@ $(document).on("click", ".editBtn", function(e){
               console.log("done");
               location.reload();
           }
+          
       })
       .catch((err) => {
           console.log(err);
@@ -60,11 +62,14 @@ $(document).on("click", ".editBtn", function(e){
     })
     break;
 }
+   }
 });
 $(document).on("click", ".trashBtn", function(e) {
     const row = $(e.target).closest('tr');
     const orderId = row.find('.orderId')[0].innerHTML;
+    const rowStatus = row.find('.status')[0].innerHTML;
 
+ if(rowStatus === 'cancelled' || rowStatus === 'delivered' ){
     const deletePrompt = confirm("Are you sure you want to delete this order?");
     if(deletePrompt){
         fetch(`${url}/order/${orderId}/delete`,{
@@ -85,14 +90,16 @@ $(document).on("click", ".trashBtn", function(e) {
               console.log(err);
           })
     }
-
+ }
 });
 $(document).on("click", ".presentLoc", function(e){
     const row = $(e.target).closest('tr');
     const orderId = row.find('.orderId')[0].innerHTML;
-
-    const presentLocation = prompt("enter the present location of the parcel delivey order");
-    if(presentLocation.value !== null){
+    const rowStatus = row.find('.status')[0].innerHTML;
+    
+   // const presentLocation = prompt("enter the present location of the parcel delivey order");
+   if(rowStatus !== 'cancelled' || rowStatus !== 'delivered'){
+    if(prompt("enter the present location of the parcel delivey order")){
         console.log("yay")
         fetch(`${url}/order/${orderId}`, {
             method: "PATCH",
@@ -115,6 +122,7 @@ $(document).on("click", ".presentLoc", function(e){
             console.log(err)
         })
     }
+}
 });
 
 logout.onclick = function(){
@@ -144,7 +152,6 @@ const displayOrders = function(){
                         <td>${order.destination}</td>
                         <td>${order.recName}</td>
                         <td>${order.recPhoneNo}</td>
-                        <td>${order.userPhoneNo}</td>
                         <td class="status">${order.status}</td>
                         <td class="presentLoc">${order.presentLoc}</td>
                         <td><i class="fas fa-edit editBtn"></i></td>

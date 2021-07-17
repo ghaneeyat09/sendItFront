@@ -7,7 +7,7 @@ $(document).on('click', '.editBtn', function(e){
    //localStorage.setItem("rowId", rowId);
    if(rowStatus !== "delivered" && rowStatus !== "cancelled"){
      const newDest = prompt("Enter a new destination");
-       if(newDest.value !== ""){
+       if(newDest !== null){
          fetch(`${url}/order/${rowId}`, {
          method: "PATCH",
          headers: {
@@ -32,23 +32,22 @@ $(document).on('click', '.editBtn', function(e){
       })
     }
    }
-else if(rowStatus === "delivered"){
+/*else if(rowStatus === "delivered"){
        alert("parcel order has been delivered");
    }
 else if(rowStatus === "cancelled"){
     alert("parcel order has been cancelled");
-}
+}*/
 });
  
 $(document).on('click', '.cancelBtn', function(e){
     const row =  $(e.target).closest('tr');
     const rowId = row.find('.orderId')[0].innerHTML;
     const rowStatus = row.find('.status')[0].innerHTML;
-    if(rowStatus !== "delivered"){
+    if(rowStatus !== "delivered" && rowStatus !== "cancelled" && rowStatus !== "on transit"){
+     if(confirm('are you sure you want to cancel this order?')){
      cancelOrder(rowId);
-    }
-    else if(rowStatus === "delivered"){
-      alert("parcel order has been delivered");
+     }
     }
 })
    /*form.style.display = "block";
@@ -253,6 +252,7 @@ viewOrders();
 
 //cancel order
 const cancelOrder = function(rowId){
+    //const rowStatus = row.find('.status')[0].innerHTML;
     fetch(`${url}/order/${rowId}/cancel`,
     {
         method: "PATCH",
@@ -261,7 +261,7 @@ const cancelOrder = function(rowId){
             Authorization: token
         },
         body: JSON.stringify({
-            status
+            status: 'cancelled'
         })
     })
         .then((res) => res.json())
