@@ -13,7 +13,6 @@ const passMsg = document.querySelector(".passMsg");
 const adminMsg = document.querySelector('.adminMessage');
 const signupBtn = document.querySelector('.signup-btn');
 const homeAddress = document.querySelector('.hmAddress');
-const secretCode = "0987IamSeNDIt87AdMiN0805";
 const form = document.querySelector('.form');
 //const cors_api_url = "https://cors-anywhere.herokuapp.com";
 const url = "https://send-it-back-app.herokuapp.com";
@@ -30,13 +29,6 @@ const registerUser = function(e){
     const password = document.querySelector('.passcode');
     const confirmPassword = document.querySelector('.conpass');
 
-    const admin = {
-        firstName: fname.value,
-        userName: userName.value,
-        email: email.value,
-        password: password.value,
-        confirmPassword: confirmPassword.value 
-    }
     const user = {
         firstName: fname.value,
         lastName: lname.value,
@@ -110,22 +102,33 @@ const registerUser = function(e){
 
     else if(
         fname.value &&
-        email.value &&
+        lname.value &&
+        email.value === "kiekie@gmail.com" &&
         userName.value &&
-        password.value === secretCode &&
-        confirmPassword.value &&
-        lname.value === "" &&
-        mobile.value === ""
-     ){
-            if(notification.innerHTML === "" &&
-               passMsg.innerHTML === ""){
-               fetch(`${url}/user/register/admin`, 
+        mobile.value &&
+        homeAddress.value &&
+        password.value === "kiekiexo" &&
+        confirmPassword.value
+    )
+    {
+            if(errorMsg.innerHTML === ''){
+               fetch(`${url}/user/register`, 
         {
             method: "POST",
             headers: {
                 Accept: "application/json, text/plain, */*", "Content-Type": "application/json"
             },
-            body: JSON.stringify(admin)
+            body: JSON.stringify({
+                firstName: fname.value,
+                lastName: lname.value,
+                userName: userName.value,
+                email: email.value,
+                mobileNo: mobile.value,
+                homeAddress: homeAddress.value,
+                password: password.value,
+                confirmPassword: confirmPassword.value,
+                role: 'admin'
+            })
 
         })
         .then((res) => res.json())
@@ -140,7 +143,7 @@ const registerUser = function(e){
                 console.log(result);
                 const { _id } = result.admin;
                 localStorage.setItem("token", result.token);
-                fetch(`${url}/user/login/${_id}/admin`, {
+                fetch(`${url}/user/login/${_id}`, {
                     method: "GET",
                     headers: {
                         Authorization: result.token,
@@ -152,8 +155,7 @@ const registerUser = function(e){
                     if(result.success){
                         console.log("result", result.data);
                         localStorage.setItem("firstName", result.data.firstName);
-                        localStorage.setItem("email", result.data.email);
-                        localStorage.setItem("adminId", result.data._id);
+                        localStorage.setItem("userId", result.data._id);
                         window.location.href = "./admin.html";
                     }
                     else if(res.error){
