@@ -1,63 +1,4 @@
-$(document).on('click', '.editBtn', function(e){
-   const row =  $(e.target).closest('tr');
-   const rowId = row.find('.orderId')[0].innerHTML;
-   const rowStatus = row.find('.status')[0].innerHTML;
-
-   //console.log(rowId);
-   //localStorage.setItem("rowId", rowId);
-   if(rowStatus !== "delivered" && rowStatus !== "cancelled"){
-     const newDest = prompt("Enter a new destination");
-       if(newDest !== null){
-         fetch(`${url}/order/${rowId}`, {
-         method: "PATCH",
-         headers: {
-          "Content-type": "application/json",
-           Authorization: token
-        },
-        body: JSON.stringify({
-          destination: newDest
-        }), 
-      })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-          if(res.message === "data patched"){
-              console.log("yay");
-              alert("Destination changed successfully");
-              location.reload();
-          }
-      })
-      .catch((err) => {
-          console.log(err);
-      })
-    }
-   }
-/*else if(rowStatus === "delivered"){
-       alert("parcel order has been delivered");
-   }
-else if(rowStatus === "cancelled"){
-    alert("parcel order has been cancelled");
-}*/
-});
- 
-$(document).on('click', '.cancelBtn', function(e){
-    const row =  $(e.target).closest('tr');
-    const rowId = row.find('.orderId')[0].innerHTML;
-    const rowStatus = row.find('.status')[0].innerHTML;
-    if(rowStatus !== "delivered" && rowStatus !== "cancelled" && rowStatus !== "on transit"){
-     if(confirm('are you sure you want to cancel this order?')){
-     cancelOrder(rowId);
-     }
-    }
-})
-   /*form.style.display = "block";
-   destination.value = oldDestination;
-   orderSubmit.innerHTML = "Update";
-        
-});*/
-
-
-//queried elements
+//dom elements
 const recipientMobile = document.querySelector('.recMob');
 const senderMobile = document.querySelector('.sendMob');
 const errormsg = document.querySelector('.errorMsg');
@@ -77,11 +18,85 @@ const url = "https://send-it-back-app.herokuapp.com";
 const tbody = document.querySelector('.tbody');
 const weight = document.querySelector('.weight');
 const amount = document.querySelector('.amount');
-const modal = document.querySelector('#editModal');
-
+const modal = document.querySelector('#modal');
+const ndsubmit = document.querySelector('.ndSubmit');
+const ndcancel = document.querySelector('.ndCancel');
 const userId = localStorage.getItem("userId");
-const token = localStorage.getItem("token");
+//const token = localStorage.getItem("token");
 const userName = localStorage.getItem("firstName");
+
+
+if(!token && !userId){
+    window.location.href = "./login.html";
+}
+//adding edit btn functionality
+$(document).on('click', '.editBtn', function(e){
+   const row =  $(e.target).closest('tr');
+   const rowId = row.find('.orderId')[0].innerHTML;
+   const rowStatus = row.find('.status')[0].innerHTML;
+
+   //console.log(rowId);
+   localStorage.setItem("rowId", rowId);
+   if(rowStatus !== "delivered" && rowStatus !== "cancelled"){
+     modal.style.display = "block";
+   }
+});
+
+//modal submit button
+ndsubmit.addEventListener('click', () => {
+    const newDest = document.getElementById('nnnDest');
+    const rowId = localStorage.getItem('rowId');
+    if(newDest.value !== ""){
+      modal.style.display = "none";
+      fetch(`${url}/order/${rowId}`, {
+      method: "PATCH",
+      headers: {
+       "Content-Type": "application/json",
+        Authorization: token
+     },
+     body: JSON.stringify({
+       destination: newDest.value
+     }), 
+   })
+   .then((res) => res.json())
+   .then((res) => {
+     console.log(res);
+       if(res.message === "data patched"){
+           console.log("yay");
+           alert("Destination changed successfully");
+           location.reload();
+           localStorage.removeItem('rowId');
+       }
+   })
+   .catch((err) => {
+       console.log(err);
+   })
+}
+});
+
+//modal cancel button 
+
+ndcancel.addEventListener('click', () => {
+    modal.style.display = "none";
+})
+//add cancel button functionality
+$(document).on('click', '.cancelBtn', function(e){
+    const row =  $(e.target).closest('tr');
+    const rowId = row.find('.orderId')[0].innerHTML;
+    const rowStatus = row.find('.status')[0].innerHTML;
+    if(rowStatus !== "delivered" && rowStatus !== "cancelled" && rowStatus !== "on transit"){
+     if(confirm('are you sure you want to cancel this order?')){
+     cancelOrder(rowId);
+     }
+    }
+})
+   /*form.style.display = "block";
+   destination.value = oldDestination;
+   orderSubmit.innerHTML = "Update";
+        
+});*/
+
+
 
 /*if(!token && !userId){
     window.location.href = "./login.html";
@@ -342,16 +357,8 @@ weight.addEventListener("mouseout", calcAmount);
 orderSubmit.addEventListener("click", submitOrder);
 logout.addEventListener("click", () => {
      localStorage.clear();
-     username.innerHTML = "";
-     window.location.href = "./index.html";
+     window.location.href = "./login.html";
 });
-
-
-if(!userId && !token){
-    window.location.href = "./login.html";
-}
-
-
 
 
 

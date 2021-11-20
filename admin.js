@@ -4,10 +4,48 @@ const url = "https://send-it-back-app.herokuapp.com";
 const logout = document.querySelector('.logout');
 const tbody = document.querySelector('.tbody');
 const table = document.querySelector('.table')
-const token = localStorage.getItem("token");
+//const token = localStorage.getItem("token");
 const adminFirst = localStorage.getItem("firstName");
 adminName.innerHTML = `Admin ${adminFirst}`;
 
+//display orders
+const displayOrders = function(){
+    fetch(`${url}/order`, {
+        method: "GET",
+        headers: {
+            Authorization : token
+        },
+    })
+    .then((res) => res.json())
+    .then((result) => {
+        console.log("result", result);
+        if(result.orders){
+        const orders = result.orders;
+        orders.forEach(order => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td class="orderId">${order._id}</td>
+                          <td>${order.userId}</td>
+                          <td>${order.pickup}</td>
+                          <td>${order.destination}</td>
+                          <td>${order.recName}</td>
+                          <td>${order.recPhoneNo}</td>
+                          <td class="status">${order.status}</td>
+                          <td class="presentLoc">${order.presentLoc}</td>
+                          <td><i class="fas fa-edit editBtn"></i></td>
+                          <td><i class="fas fa-trash trashBtn"></i></td>`
+                    tbody.appendChild(tr);
+                    table.appendChild(tbody);
+        });
+      }
+    }) 
+    .catch((err) => {
+        console.log(err)
+    })
+  }
+  
+displayOrders();
+
+//edit btn
 $(document).on("click", ".editBtn", function(e){
    const row = $(e.target).closest('tr');
    const orderId = row.find('.orderId')[0].innerHTML;
@@ -63,7 +101,34 @@ $(document).on("click", ".editBtn", function(e){
     break;
 }
    }
+   else if(rowStatus === "on transit"){
+   const orderStatus = confirm("do you want to change the status of the parcel order to 'delivered'?");
+      if(orderStatus){
+        fetch(`${url}/order/${orderId}`, {
+            method: "PATCH",
+            headers: {
+               "Content-Type": "application/json",
+                Authorization: token
+            },
+            body: JSON.stringify({
+               status: "delivered"
+            })
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            if(res.message === "data patched"){
+                console.log("done");
+                location.reload();
+            }
+            
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+      }
+   }
 });
+//delete order
 $(document).on("click", ".trashBtn", function(e) {
     const row = $(e.target).closest('tr');
     const orderId = row.find('.orderId')[0].innerHTML;
@@ -97,9 +162,9 @@ $(document).on("click", ".presentLoc", function(e){
     const orderId = row.find('.orderId')[0].innerHTML;
     const rowStatus = row.find('.status')[0].innerHTML;
     
-   // const presentLocation = prompt("enter the present location of the parcel delivey order");
+   const presentLocation = prompt("enter the present location of the parcel delivey order");
    if(rowStatus !== 'cancelled' || rowStatus !== 'delivered'){
-    if(prompt("enter the present location of the parcel delivey order")){
+    if(presentLocation){
         console.log("yay")
         fetch(`${url}/order/${orderId}`, {
             method: "PATCH",
@@ -132,41 +197,3 @@ logout.onclick = function(){
 if(!token){
     window.location.href = "./login.html"
 }
-const displayOrders = function(){
-  fetch(`${url}/order`, {
-      method: "GET",
-      headers: {
-          Authorization : token
-      },
-  })
-  .then((res) => res.json())
-  .then((result) => {
-      console.log("result", result);
-      if(result.orders){
-      const orders = result.orders;
-      orders.forEach(order => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td class="orderId">${order._id}</td>
-                        <td>${order.userId}</td>
-                        <td>${order.pickup}</td>
-                        <td>${order.destination}</td>
-                        <td>${order.recName}</td>
-                        <td>${order.recPhoneNo}</td>
-                        <td class="status">${order.status}</td>
-                        <td class="presentLoc">${order.presentLoc}</td>
-                        <td><i class="fas fa-edit editBtn"></i></td>
-                        <td><i class="fas fa-trash trashBtn"></i></td>`
-                  tbody.appendChild(tr);
-                  table.appendChild(tbody);
-      });
-    }
-  }) 
-  .catch((err) => {
-      console.log(err)
-  })
-}
-
-parcelOrders.addEventListener("click", () => {
-    //console.log("nay");
-    displayOrders();
-});

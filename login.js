@@ -2,29 +2,28 @@ const email = document.querySelector('.email');
 const password = document.querySelector('.password');
 const loginBtn = document.querySelector('.loginBtn');
 const form = document.querySelector("#loginField");
-const adminMsg = document.querySelector('.adminMessage');
-const secretCode = "0987IamSeNDIt87AdMiN0805";
+//const adminMsg = document.querySelector('.adminMessage');
 const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 //const cors_api_url = "https://cors-anywhere.herokuapp.com";
 const url = "https://send-it-back-app.herokuapp.com";
+//const token = localStorage.getItem('token');
+const userId = localStorage.getItem('userId');
 
-
+//log user
 const logUser = function(e) {
     e.preventDefault();
     const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
    
    if(
-     email.value.match(pattern) &&
-     password.value !== secretCode){
+        email.value === "kiekie@gmail.com" && password.value === "kiekiexo"){
+        //console.log(email.value, password.value);
+          logAdmin();       
+ }
+   else if(
+     email.value.match(pattern) && password.value != ""){
        loginBasicUser();
 }
 
-   else if(
-          email.value.match(pattern) && 
-          password.value === secretCode){
-            logAdmin();
-          
-   }
    else if(!email.value.match(pattern) && password != ""){
        alert("invalid email/password");
    }
@@ -84,7 +83,7 @@ function loginBasicUser(){
 
 //log admin
 function logAdmin(){
-        fetch(`${url}/user/login/admin`, 
+        fetch(`${url}/user/login`, 
         {
             method: "POST",
             headers: {
@@ -98,17 +97,10 @@ function logAdmin(){
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
-            if(res.message === "user not found" && password.value != ""){
-                alert('user not registered');
-                return false;
-            }
-            if(res.message === "invalid email/password"){
-                alert('invalid email/password');
-            }
-            else if(res.token){
-                const { _id } = res.admin;
+            if(res.token){
+                const { _id } = res.user;
                 localStorage.setItem("token", res.token)
-                fetch(`${url}/user/login/${_id}/admin`, {
+                fetch(`${url}/user/login/${_id}`, {
                     method: "GET",
                     headers: {
                         Authorization: res.token,
@@ -132,8 +124,9 @@ function logAdmin(){
         .catch((err) => {
             console.log(err);
         });
-        }   
+        }  
 
+     
 
 form.addEventListener("submit", logUser);
 

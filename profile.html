@@ -7,11 +7,17 @@
         <link rel="stylesheet" href="./css/profile.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous"></script>
+        <script>
+          const token = localStorage.getItem("token");
+  
+  if (!token) {
+    window.location.href = "./login.html";
+  }
+  </script>
     </head>
     <body>
         <div id="main-nav">
             <ul>
-                <li><a href="./index.html">home</a></li>
                 <li class="logOut">Logout</li>
                 <li><span class="user"></span></li>
             </ul>
@@ -62,7 +68,14 @@
               </div>
             </div>
           </div-->
-
+        <div id="modal">
+          <h2>enter a new destination</h2></br>
+          <input type="text" id="nnnDest"/><br/>
+          <div id="btns">
+            <button class="ndCancel">cancel</button>
+            <button class="ndSubmit">submit</button>
+          </div>
+        </div>
         <div id="created-orders">
             <table border=1 class="table">
                 <tr>
@@ -72,7 +85,7 @@
                     <th>recipient name</th>
                     <th>recipient mobile no.</th>
                     <th>order status</th>
-                    <th class="edit">edit destination</th>
+                    <th class="edit" >edit destination</th>
                     <th class="cancel">cancel order</th>
                 </tr>
                 <tbody class="tbody"></tbody>
@@ -91,10 +104,12 @@
         function initMap(){
            const pickup = document.getElementById('pickup');
            const destination = document.getElementById('destination');
+           const newDest = document.getElementById('nnnDest');
            //const promptDest = document.getElementsByClassName('promptDest');
 
            const autocompletePickup = new google.maps.places.Autocomplete(pickup);
            const autocompleteDestination = new google.maps.places.Autocomplete(destination);
+           const autocompletenDest = new google.maps.places.Autocomplete(newDest);
            //const autocompletePrompDest = new google.maps.places.Autocomplete(promptDest);
         }
     </script>

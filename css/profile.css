@@ -195,3 +195,36 @@ tbody, th, td{
     -webkit-appearance: none;
     margin: 0;
 }
+
+/**modal*/
+#modal{
+    border: 1px solid black; 
+    width: 300px; 
+    height: 200px;
+    text-align: center;
+    display: none; 
+    background: white;
+    position: fixed;
+    top: 10px;
+    right: 80px;
+    border-radius: 10px;
+
+}
+#modal h2{
+    text-transform: capitalize;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+#modal input{
+    height: 20px;
+    width: 220px;
+    border-radius: 3px;
+}
+#modal #btns{
+    margin-left: 160px;
+}
+#modal #btns button{
+    margin-top: 20px;
+    border-radius: 3px;
+    
+}

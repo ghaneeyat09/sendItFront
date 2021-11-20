@@ -2,24 +2,25 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale= 1.0 ">
+        <meta name="viewport" content="width=device-width, initial-scale= 1.0">
         <title>admin page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="./css/admin.css">
+        <script>
+            const token = localStorage.getItem("token");
+    
+    if (!token) {
+      window.location.href = "./login.html";
+    }
+    </script>
     </head>
     <body>
         <div id="navBar">
             <ul>
-                <li class="home"><a href="./index.html">home</a></li>
                 <li class="logout">log out</li>
                 <li class="admin"><i class="fas fa-user"><p id="admin-name"></p></i></li>
-            </ul>
-        </div>
-        <div id="subNavBar">
-            <ul>
-                <li><a class="parcel-orders">parcel delivery orders</a></li>
             </ul>
         </div>
         <div id="table">

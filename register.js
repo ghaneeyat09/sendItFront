@@ -43,7 +43,6 @@ const registerUser = function(e){
         if(fname.value &&
             lname.value &&
             email.value &&
-            userName.value &&
             mobile.value &&
             homeAddress.value &&
             password.value && 
@@ -99,118 +98,27 @@ const registerUser = function(e){
         })
     }
 }
-
-    else if(
-        fname.value &&
-        lname.value &&
-        email.value === "kiekie@gmail.com" &&
-        userName.value &&
-        mobile.value &&
-        homeAddress.value &&
-        password.value === "kiekiexo" &&
-        confirmPassword.value
-    )
-    {
-            if(errorMsg.innerHTML === ''){
-               fetch(`${url}/user/register`, 
-        {
-            method: "POST",
-            headers: {
-                Accept: "application/json, text/plain, */*", "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                firstName: fname.value,
-                lastName: lname.value,
-                userName: userName.value,
-                email: email.value,
-                mobileNo: mobile.value,
-                homeAddress: homeAddress.value,
-                password: password.value,
-                confirmPassword: confirmPassword.value,
-                role: 'admin'
-            })
-
-        })
-        .then((res) => res.json())
-        .then((result) => {
-            console.log(result);
-            if(result.message === "mail exists"){
-                console.log("mail exists");
-                alert('mail exists');
-                return false;
-            }
-            else if(result.token){
-                console.log(result);
-                const { _id } = result.admin;
-                localStorage.setItem("token", result.token);
-                fetch(`${url}/user/login/${_id}`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: result.token,
-                    }
-                })
-                .then((res) => res.json())
-                .then((result) => {
-                    console.log(result)
-                    if(result.success){
-                        console.log("result", result.data);
-                        localStorage.setItem("firstName", result.data.firstName);
-                        localStorage.setItem("userId", result.data._id);
-                        window.location.href = "./admin.html";
-                    }
-                    else if(res.error){
-                        console.log("error", res.error)
-                    }
-                })
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        }
-    }
-    else if(fname.value === "" ||
-    lname.value === "" ||
-    email.value === "" ||
-    userName.value === "" ||
-    mobile.value === "" ||
-    homeAddress.value === "" ||
-    password.value=== "" ||
-    confirmPassword.value === "")
-    {
-        alert("please input the field completely");
-        return false;
-    }
 }
-
         
-
-        
-    
+   
 
 function emailValidation() {
     const email = document.querySelector(".ename").value;
     const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     const notification = document.querySelector(".notification");
-
-  if(email.match(pattern))
+  if(email === ""){
+        notification.innerHTML = "";
+      }
+  else if(email.match(pattern))
   {
-    form.classList.add("valid");
-    form.classList.remove("invalid");
     notification.innerHTML = "";
   }
   else{
-    form.classList.add("invalid");
-    form.classList.remove("valid");
     notification.innerHTML = "Pls enter a valid email address";
     notification.style.color = "red";
     return false;
   }
-  if(email === ""){
-    form.classList.remove("valid");
-    form.classList.remove("invalid");
-    notification.innerHTML = "";
-  }
+  
 }
 
 function mobileValidation() {

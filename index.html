@@ -7,9 +7,15 @@
         <link rel="stylesheet" href="./style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous"></script>
-
+        <script>
+            const token = localStorage.getItem("token");
+    
+    if (token) {
+      window.location.href = "./profile.html";
+    }
+    </script>
     </head>
-    <body>
+    <body onunload="goBack()">
        <div id="header">
         <img class="logo" src="./images/sendItlogo.jpg">
         <nav id="main-nav">
