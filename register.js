@@ -191,9 +191,6 @@ mobile.addEventListener("change", () =>{
     mobileValidation();
     instruction.innerHTML = "";
 });
-mobile.addEventListener("click", function(){
-  instruction.innerHTML = "mobile number must include a country code"
-});
 password.addEventListener("mouseout", checkPasswordLenght);
 confirmPassword.addEventListener("mouseout", checkPassword);
 form.addEventListener("submit", registerUser);

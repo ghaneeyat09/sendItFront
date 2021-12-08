@@ -3,7 +3,12 @@ const adminName = document.querySelector('#admin-name');
 const url = "https://send-it-back-app.herokuapp.com";
 const logout = document.querySelector('.logout');
 const tbody = document.querySelector('.tbody');
-const table = document.querySelector('.table')
+const table = document.querySelector('.table');
+const statusPop = document.querySelector('.statusPop');
+const statusSub = document.querySelector('.statusSub');
+const statusCancel= document.querySelector('.statusCancel');
+const selectCon = document.querySelector('.selectCon');
+
 //const token = localStorage.getItem("token");
 const adminFirst = localStorage.getItem("firstName");
 adminName.innerHTML = `Admin ${adminFirst}`;
@@ -50,58 +55,12 @@ $(document).on("click", ".editBtn", function(e){
    const row = $(e.target).closest('tr');
    const orderId = row.find('.orderId')[0].innerHTML;
    const rowStatus = row.find('.status')[0].innerHTML;
-  // console.log(orderId, rowStatus);
+  // console.log(orderId, rowStat);
+   localStorage.setItem('orderId', orderId)
    if(rowStatus === "ready to pick"){
-   const orderStatus = prompt("do you want to change the status of the parcel order to 'on transit' or 'delivered'");
-   switch(orderStatus) {
-   case "delivered":
-      fetch(`${url}/order/${orderId}`, {
-          method: "PATCH",
-          headers: {
-             "Content-Type": "application/json",
-              Authorization: token
-          },
-          body: JSON.stringify({
-             status: "delivered"
-          })
-      })
-      .then((res) => res.json())
-      .then((res) => {
-          if(res.message === "data patched"){
-              console.log("done");
-              location.reload();
-          }
-          
-      })
-      .catch((err) => {
-          console.log(err);
-      })
-      break;
-   case "on transit":
-    fetch(`${url}/order/${orderId}`, {
-        method: "PATCH",
-        headers: {
-           "Content-Type": "application/json",
-            Authorization: token
-        },
-        body: JSON.stringify({
-           status: "on transit"
-        })
-    })
-    .then((res) => res.json())
-    .then((res) => {
-        if(res.message === "data patched"){
-            console.log("done");
-            location.reload();
-        }
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-    break;
-}
+       statusPop.style.display = "block";
    }
-   else if(rowStatus === "on transit"){
+   else if(rowStatus === "in transit"){
    const orderStatus = confirm("do you want to change the status of the parcel order to 'delivered'?");
       if(orderStatus){
         fetch(`${url}/order/${orderId}`, {
@@ -128,6 +87,65 @@ $(document).on("click", ".editBtn", function(e){
       }
    }
 });
+//
+statusSub.addEventListener("click", () => {
+    const selectConValue = selectCon.value;
+    console.log(selectConValue);
+    const orderId = localStorage.getItem("orderId");
+   /*const orderStatus = prompt("do you want to change the status of the parcel order to 'on transit' or 'delivered'");*/
+   switch(selectConValue) {
+   case "delivered":
+      fetch(`${url}/order/${orderId}`, {
+          method: "PATCH",
+          headers: {
+             "Content-Type": "application/json",
+              Authorization: token
+          },
+          body: JSON.stringify({
+             status: "delivered"
+          })
+      })
+      .then((res) => res.json())
+      .then((res) => {
+          if(res.message === "data patched"){
+              console.log("done");
+              location.reload();
+              localStorage.removeItem("orderId");
+          }
+          
+      })
+      .catch((err) => {
+          console.log(err);
+      })
+      break;
+   case "in transit":
+    fetch(`${url}/order/${orderId}`, {
+        method: "PATCH",
+        headers: {
+           "Content-Type": "application/json",
+            Authorization: token
+        },
+        body: JSON.stringify({
+           status: "in transit"
+        })
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        if(res.message === "data patched"){
+            console.log("done");
+            location.reload();
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+    break;
+}
+})
+//cancel status
+statusCancel.addEventListener('click', () => {
+    statusPop.style.display = "none";
+})
 //delete order
 $(document).on("click", ".trashBtn", function(e) {
     const row = $(e.target).closest('tr');
